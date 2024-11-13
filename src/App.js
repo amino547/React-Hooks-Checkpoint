@@ -1,30 +1,26 @@
-import "./App.css";
+import React, { useState } from "react";
 import { data } from "./data.js";
-import Header from "./compo/Header.js"
-import { useState } from "react";
-import MovieList from "./compo/MovieList.js"
-import Form from "./compo/Form.js";
-import Footer from "./compo/Footer.js";
-
+import Header from "./compo/Header";
+import MovieList from "./compo/MovieList";
+import Form from "./compo/Form";
+import "./App.css";
+import {Routes,Route} from 'react-router-dom'
+import Trailer from "./compo/Trailer.js";
 function App() {
-  const [movieData, SetMovieData] = useState(data);
-
-  
-
+  const [movieData, setMovieData] = useState(data);
+  const [nameSearch, setNameSearch] = useState(""); 
   const addMovie = (newMovie) => {
-    SetMovieData([...movieData, newMovie]);
+    setMovieData([...movieData, newMovie]);
   };
-
-  const[nameSearch,setNameSearch]=useState('')
 
   return (
     <>
       <Header setNameSearch={setNameSearch} />
-      <MovieList movieData={movieData} nameSearch={nameSearch} />
-      <Form addMovie={addMovie}  />
-      <footer  >
-        <Footer/>
-      </footer>
+      <Routes>
+        <Route path='/' element={<MovieList movieData={movieData} nameSearch={nameSearch} />} /> 
+ <Route path='/add' element={ <Form addMovie={addMovie} />} />
+  <Route path='/trailer/:id' element={  <Trailer/> } />
+      </Routes>
     </>
   );
 }

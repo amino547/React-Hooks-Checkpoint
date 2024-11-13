@@ -1,35 +1,41 @@
 import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { useNavigate } from "react-router-dom";
 const Form = ({ addMovie }) => {
+
   const [title, setTitle] = useState();
   const [vote_avg, setVote_avg] = useState();
   const [overview, setOverview] = useState();
   const [poster_path, setPoster_path] = useState();
 
-  const add = () => {
-    addMovie({
-      id: uuidv4(),
-      title: title,
-      vote_avg: vote_avg,
-      overview: overview,
-      poster_path: poster_path,
-    });
-  };
+const navigate = useNavigate()
+const Add=()=>{
+
+  addMovie({
+id:uuidv4(),
+title: title,
+poster_path: poster_path, 
+overview: overview,
+vote_avg:vote_avg
+
+  })
+  navigate('/movie')
+}
 
   return (
     <div className="form">
       <div id="signup">
         <h1>Add Movie</h1>
 
-        <form>
+        <form      >
           <div className="top-row">
             <div className="field-wrap">
               <label>
-                Movie title<span className="req">*</span>
+              {title} <span className="req">*</span>
               </label>
               <input
                 type="text"
-                value={title}
+               
                 onChange={(e) => setTitle(e.target.value)}
               />
             </div>
@@ -70,8 +76,7 @@ const Form = ({ addMovie }) => {
 
           <button
             type="button"
-            className="button button-block"
-            onClick={() => add()}
+         onClick={()=>Add()}
           >
             Add movie
           </button>
